@@ -20,7 +20,7 @@ export default function Home() {
     .catch((err) => {
       console.log(err)
     })
-  }, [])
+  }, [API_URL])
 
   return (
     <>
