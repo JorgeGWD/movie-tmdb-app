@@ -5,4 +5,14 @@
 .movie-card img {
   width: 100%;
   height: auto;
+}
+.movie-card__description {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.movie-card.selected {
+  color: black;
+  background-color: white;
 }/*# sourceMappingURL=card.css.map */
