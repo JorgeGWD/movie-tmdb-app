@@ -1,14 +1,20 @@
-.movie-card
-    flex: 0 0 300px
-    transition: transform 0.3s
-    img
-        width: 100%
-        height: auto
-    &__description
-        padding: 0 10px
+.cards
+    display: flex
+    flex-direction: column
+    &-content
         display: flex
-        flex-direction: column
-        gap: 5px
-    &.selected
-        color: black
-        background-color: white
+        gap: 20px
+        &__container
+            flex: 0 0 300px
+            transition: transform 0.3s
+            img
+                width: 100%
+                height: auto
+            &-description
+                padding: 0 10px
+                display: flex
+                flex-direction: column
+                gap: 5px
+            &.selected
+                color: black
+                background-color: white
