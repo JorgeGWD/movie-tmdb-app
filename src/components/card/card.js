@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import './card.css';
-import { API_URL, IMAGE_URL } from "@/services/api_info";
+import { getCardDetails, IMAGE_URL } from "@/services/api_info";
 import Link from "next/link";
 
-function Card() {
-    const [movies, setMovies] = useState([]);
+function Card({requestData, title}) {
+    const [cards, setCards] = useState([]);
     const [selectedCardIndex, setSelectedCardIndex] = useState(0);
 
     useEffect(() => {
-        axios.get(API_URL)
-        .then((response) => {
-            setMovies(response.data.results);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }, []);
+        const fetchCardDetails = async () => {
+            const data = await getCardDetails(requestData);
+            setCards(data.results);
+            // console.log(data.results)
+        };
+      
+        fetchCardDetails();
+    }, [requestData]);
 
     useEffect(() => {
         const handleKeyPress = (event) => {
             const key = event.key.toLowerCase();
-            if (key === 'arrowright' && selectedCardIndex < movies.length - 1) {
+            if (key === 'arrowright' && selectedCardIndex < cards.length - 1) {
                 setSelectedCardIndex((prevIndex) => prevIndex + 1);
             } else if (key === 'arrowleft' && selectedCardIndex > 0) {
                 setSelectedCardIndex((prevIndex) => prevIndex - 1);
             } else if (key === 'enter') {
                 // Simulate a click event on the selected card's link
-                const selectedCardLink = document.querySelector(`.movie-card.selected a`);
+                const selectedCardLink = document.querySelector(`.cards-content.selected a`);
                 if (selectedCardLink) {
                     selectedCardLink.click();
                 }
@@ -38,25 +37,28 @@ function Card() {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
-    }, [selectedCardIndex, movies]);
+    }, [selectedCardIndex, cards]);
 
     return (
-        <>
-            {movies && movies.length > 0 && movies.map((movie, index) => (
-                <div className={`movie-card ${selectedCardIndex === index ? 'selected' : ''}`} key={index}>
-                    <Link href={`https://api.themoviedb.org/3/movie/${movie.id}`}>
-                        <div>
-                            <img src={`${IMAGE_URL}${movie.poster_path}`} alt={movie.title}/>
-                            <div className="movie-card__description">
-                                <small>{movie.release_date}</small>
-                                <h3>{movie.title}</h3>
-                                <small>{movie.vote_average}</small>
+        <div className="cards">
+            <h1>{title}</h1>
+            <div className="cards-content">
+                {cards && cards.length > 0 && cards.map((card, index) => (
+                    <div className={`cards-content__container ${selectedCardIndex === index ? 'selected' : ''}`} key={index}>
+                        <Link href={`https://api.themoviedb.org/3/movie/${card.id}`}>
+                            <div>
+                                <img src={`${IMAGE_URL}${card.poster_path}`} alt={card.title}/>
+                                <div className="cards-content__container-description">
+                                    <small>{card.release_date || card.first_air_date}</small>
+                                    <h3>{card.title || card.name}</h3>
+                                    <small>{card.vote_average}</small>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                </div>
-            ))}
-        </>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
 
