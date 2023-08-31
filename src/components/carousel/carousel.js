@@ -28,8 +28,8 @@ function Carousel() {
     const sliderOffset = currentCard * (cardWidth + cardMargin);
 
     return (
-        <div className='movie-carousel' style={{ transform: `translateX(-${sliderOffset}px)` }}>
-            <Card />
+        <div className='carousel' style={{ transform: `translateX(-${sliderOffset}px)` }}>
+            <Card title='Movies' requestData='discover/movie' />
         </div>
     )
 }
