@@ -45,7 +45,7 @@ function Card({requestData, title}) {
             <div className="cards-content">
                 {cards && cards.length > 0 && cards.map((card, index) => (
                     <div className={`cards-content__container ${selectedCardIndex === index ? 'selected' : ''}`} key={index}>
-                        <Link href={`https://api.themoviedb.org/3/movie/${card.id}`}>
+                        <Link href={`/details/${card.id}`}>
                             <div>
                                 <img src={`${IMAGE_URL}${card.poster_path}`} alt={card.title}/>
                                 <div className="cards-content__container-description">
