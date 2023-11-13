@@ -1,0 +1,8 @@
+.details {
+  margin: 40px 25px;
+}
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}/*# sourceMappingURL=details.css.map */
