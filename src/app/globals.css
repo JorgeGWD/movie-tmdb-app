@@ -19,10 +19,12 @@ a {
 }
 
 button {
+  position: relative;
   padding: 10px 30px;
   width: -moz-fit-content;
   width: fit-content;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  z-index: 10;
 }/*# sourceMappingURL=globals.css.map */
