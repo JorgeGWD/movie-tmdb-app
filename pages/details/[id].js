@@ -1,28 +1,32 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getDetails, IMAGE_URL } from "@/services/api_info";
+import { getCardDetails, IMAGE_URL } from "@/services/api_info";
 
-const details = () => {
+const Details = () => {
+    const [details, setDetails] = useState([]);
+    const router = useRouter();
 
-    const [details, setDetails] = useState([])
-
-    const router = useRouter()
-
-    console.log(router.query.id)
-    
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${'615656'}?language=en-US`)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(err => console.error(err));
-    }, []);
+        const fetchData = async () => {
+            try {
+                const data = await getCardDetails(`movie/${router.query.id}`);
+                setDetails(data);
+                console.log(data)
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+            }
+        };
 
+        if (router.query.id) {
+            fetchData();
+        }
+    }, [router.query.id]);
 
     return (
         <>
-            <h1>Detalles</h1>
+            <h1>{details.original_title}</h1>
         </>
-    )
-}
+    );
+};
 
-export default details
+export default Details;
