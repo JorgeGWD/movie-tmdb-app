@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCardDetails, IMAGE_URL } from "@/services/api_info";
+import '../../src/app/globals.css'
 
 const Details = () => {
     const [details, setDetails] = useState([]);
