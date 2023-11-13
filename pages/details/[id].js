@@ -30,9 +30,10 @@ const Details = () => {
     };
 
     return (
-        <section className="details">
+        <section className="details" style={{ backgroundImage: `url(${IMAGE_URL}${details.backdrop_path})` }} >
+            <button onClick={returnPage}>Back</button>
             <aticle className="details-content">
-                <button onClick={returnPage}>Back</button>
+                <img src={`${IMAGE_URL}${details.poster_path}`} alt={details.title}/>
                 <h1>{details.original_title}</h1>
             </aticle>
         </section>
