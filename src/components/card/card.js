@@ -3,7 +3,7 @@ import './card.css';
 import { getCardDetails, IMAGE_URL } from "@/services/api_info";
 import Link from "next/link";
 
-function Card({requestData, title}) {
+function Card({ requestData, title }) {
     const [cards, setCards] = useState([]);
     const [selectedCardIndex, setSelectedCardIndex] = useState(0);
 
@@ -13,7 +13,7 @@ function Card({requestData, title}) {
             setCards(data.results);
             // console.log(data.results)
         };
-      
+
         fetchCardDetails();
     }, [requestData]);
 
@@ -25,8 +25,7 @@ function Card({requestData, title}) {
             } else if (key === 'arrowleft' && selectedCardIndex > 0) {
                 setSelectedCardIndex((prevIndex) => prevIndex - 1);
             } else if (key === 'enter') {
-                // Simulate a click event on the selected card's link
-                const selectedCardLink = document.querySelector(`.cards-content.selected a`);
+                const selectedCardLink = document.querySelector(`.cards-content__container.selected a`);
                 if (selectedCardLink) {
                     selectedCardLink.click();
                 }
@@ -39,12 +38,21 @@ function Card({requestData, title}) {
         };
     }, [selectedCardIndex, cards]);
 
+    const handleCardClick = (index) => {
+        setSelectedCardIndex(index);
+    };
+
     return (
         <div className="cards">
             <h1>{title}</h1>
             <div className="cards-content">
                 {cards && cards.length > 0 && cards.map((card, index) => (
-                    <div className={`cards-content__container ${selectedCardIndex === index ? 'selected' : ''}`} key={index}>
+                    <div
+                        className={`cards-content__container ${selectedCardIndex === index ? 'selected' : ''}`}
+                        key={index}
+                        tabIndex={0}
+                        onClick={() => handleCardClick(index)}
+                    >
                         <Link href={`/details/${card.id}`}>
                             <div>
                                 <img src={`${IMAGE_URL}${card.poster_path}`} alt={card.title}/>
@@ -59,7 +67,7 @@ function Card({requestData, title}) {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default Card;
