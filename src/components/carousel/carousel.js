@@ -23,7 +23,7 @@ function Carousel() {
         };
     }, [currentCard]);
 
-    const cardWidth = 235;
+    const cardWidth = 238;
     const cardMargin = 0;
     const sliderOffset = currentCard * (cardWidth + cardMargin);
 
